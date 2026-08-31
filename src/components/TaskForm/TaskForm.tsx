@@ -1,18 +1,18 @@
 import { log } from 'console';
 import type { TaskFormData } from '../../types/';
-import type { TaskStatus } from '../../types/index';
+import type { TaskStatus, TaskFormProps } from '../../types/index';
 import { useState } from 'react';
 
-export const TaskForm = () => {
+export const TaskForm = ({onAddTask}: TaskFormProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState<TaskStatus>('pending');
   const [priority, setPriority ] = useState<'low' | 'medium' | 'high'>('medium');
   const [dueDate, setDueDate ] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log({title, description, status, priority, dueDate})
+    onAddTask({title, description, status, priority, dueDate})
   }
   return (
     <form onSubmit={handleSubmit}>
