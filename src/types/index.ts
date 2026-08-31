@@ -35,3 +35,7 @@ export interface TaskFormData {
   priority: 'low' | 'medium' | 'high';
   dueDate: string;
 }
+
+export interface TaskFormProps {
+  onAddTask: (task: TaskFormData) => void;
+}
