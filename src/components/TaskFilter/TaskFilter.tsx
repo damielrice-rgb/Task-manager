@@ -52,7 +52,7 @@ return (
     </select>
     </div>
     
-    <div className="flex flex-col"></div>
+    <div className="flex flex-col">
 
     <label htmlFor="priority-filter"
       className="mb-1 text-sm font-medium text-gray-700">
@@ -67,6 +67,7 @@ return (
       <option value="medium">Medium</option>
       <option value="high">High</option>
     </select>
+    </div>
     </div>
     </div>
 
