@@ -1,9 +1,12 @@
 import type { TaskFormData } from '../../types/';
+import type { TaskStatus } from '../../types/index';
 import { useState } from 'react';
 
 export const TaskForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [status, setStatus] = useState<TaskStatus>('pending');
+  const [priority, setPriority ] = useState<'low' | 'medium' | 'high'>('medium');
   return (
     <div>
       <h2>Add New Task</h2>
@@ -22,6 +25,28 @@ export const TaskForm = () => {
             id="description"
             value={description}
             onChange={(event) => setDescription(event.target.value)}></textarea>
+
+            <label htmlFor="status">Status</label>
+
+            <select
+              id="status"
+              value={status}
+              onChange={(event) => setStatus(event.target.value as TaskStatus)}>
+              <option value="pedning">Pending</option>
+              <option value="in-progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+
+            <label htmlFor="priority">Priority</label>
+
+            <select
+              id="priority"
+              value={priority}
+              onChange={(event) => setPriority(event.target.value as 'low' | 'medium' | 'high')}>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
     </div>
   );
 };
