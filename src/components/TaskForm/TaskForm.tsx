@@ -7,6 +7,7 @@ export const TaskForm = () => {
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState<TaskStatus>('pending');
   const [priority, setPriority ] = useState<'low' | 'medium' | 'high'>('medium');
+  const [dueDate, setDueDate ] = useState('');
   return (
     <div>
       <h2>Add New Task</h2>
@@ -47,6 +48,14 @@ export const TaskForm = () => {
               <option value="medium">Medium</option>
               <option value="high">High</option>
             </select>
+
+            <label htmlFor="dueDate">Due Date</label>
+
+            <input
+            id="dueDate"
+            type="date"
+            value={dueDate}
+            onChange={(event) => setDueDate(event.target.value)}/>
     </div>
   );
 };
