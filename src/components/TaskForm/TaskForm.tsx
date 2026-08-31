@@ -1,5 +1,5 @@
-import { log } from 'console';
-import type { TaskFormData } from '../../types/';
+
+
 import type { TaskStatus, TaskFormProps } from '../../types/index';
 import { useState } from 'react';
 
@@ -39,7 +39,7 @@ export const TaskForm = ({onAddTask}: TaskFormProps) => {
               id="status"
               value={status}
               onChange={(event) => setStatus(event.target.value as TaskStatus)}>
-              <option value="pedning">Pending</option>
+              <option value="pending">Pending</option>
               <option value="in-progress">In Progress</option>
               <option value="completed">Completed</option>
             </select>

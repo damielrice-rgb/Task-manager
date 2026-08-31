@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { TaskList } from '../src/components/TaskList/TaskList';
-import type { Task } from '../src/types/index';
+import type { Task, TaskFormData } from '../src/types/index';
 import { TaskFilter } from '../src/components/TaskFilter/TaskFilter'
+import { TaskForm } from './components/TaskForm/TaskForm';
 import './App.css'
 
 const initialTasks: Task[] = [
@@ -58,6 +59,18 @@ function App() {
 );
 };
 
+const handleAddTask = (taskData: TaskFormData) => {
+  const newTask: Task = {
+    id: Date.now().toString(),
+    ...taskData
+  };
+
+  setTasks((currentTask) => [
+    ...currentTask,
+    newTask
+  ])
+};
+
 const handleFilterChange = (newFilters: {
   status?: Task['status'] | null;
   priority?: Task['priority'] | null;
@@ -90,6 +103,9 @@ const handleFilterChange = (newFilters: {
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="mx-auto max-w-4xl">
+        <TaskForm onAddTask={handleAddTask} />
+
+
        <TaskFilter
     onFilterChange={handleFilterChange} />
 
