@@ -1,3 +1,4 @@
+import { log } from 'console';
 import type { TaskFormData } from '../../types/';
 import type { TaskStatus } from '../../types/index';
 import { useState } from 'react';
@@ -8,8 +9,13 @@ export const TaskForm = () => {
   const [status, setStatus] = useState<TaskStatus>('pending');
   const [priority, setPriority ] = useState<'low' | 'medium' | 'high'>('medium');
   const [dueDate, setDueDate ] = useState('');
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement) => {
+    event.preventDefault();
+    console.log({title, description, status, priority, dueDate})
+  }
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <h2>Add New Task</h2>
 
       <label htmlFor="title">Title</label>
@@ -56,6 +62,8 @@ export const TaskForm = () => {
             type="date"
             value={dueDate}
             onChange={(event) => setDueDate(event.target.value)}/>
-    </div>
+
+            <button type='submit'>Add Task</button>
+    </form>
   );
 };
