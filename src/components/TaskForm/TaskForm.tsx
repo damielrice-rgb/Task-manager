@@ -12,7 +12,14 @@ export const TaskForm = ({onAddTask}: TaskFormProps) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onAddTask({title, description, status, priority, dueDate})
+    onAddTask({title, description, status, priority, dueDate});
+
+    setTitle('');
+    setDescription('');
+    setStatus('pending');
+    setPriority('medium');
+    setDueDate('');
+
   }
   return (
     <form onSubmit={handleSubmit}>
