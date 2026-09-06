@@ -1,15 +1,26 @@
 
 
 import type { TaskStatus, TaskFormProps } from '../../types/index';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export const TaskForm = ({onAddTask}: TaskFormProps) => {
+export const TaskForm = ({onAddTask, onUpdateTask, editingTask,}: TaskFormProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState<TaskStatus>('pending');
   const [priority, setPriority ] = useState<'low' | 'medium' | 'high'>('medium');
   const [dueDate, setDueDate ] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
+
+  useEffect(() => {
+    if(editingTask) {
+      console.log('TaskForm recieved:', editingTask);
+      setTitle(editingTask.title);
+      setDescription(editingTask.description);
+      setStatus(editingTask.status);
+      setPriority(editingTask.priority);
+      setDueDate(editingTask.dueDate);
+    }
+  }, [editingTask]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,7 +42,11 @@ export const TaskForm = ({onAddTask}: TaskFormProps) => {
       setErrors(newErrors);
       return;
     }
-    onAddTask({title, description, status, priority, dueDate});
+    if(editingTask) {
+      onUpdateTask({ ...editingTask, title, description, status, priority, dueDate });
+    } else {
+      onAddTask({title, description, status, priority, dueDate});
+    }
 
     setTitle('');
     setDescription('');
@@ -42,7 +57,7 @@ export const TaskForm = ({onAddTask}: TaskFormProps) => {
   }
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Add New Task</h2>
+      <h2>{editingTask ? 'Edit Task' : 'Add New Task'}</h2>
 
       {errors.length > 0 && (
         <div className="error-messages">
@@ -97,7 +112,7 @@ export const TaskForm = ({onAddTask}: TaskFormProps) => {
             value={dueDate}
             onChange={(event) => setDueDate(event.target.value)}/>
 
-            <button type='submit'>Add Task</button>
+            <button type='submit'>{editingTask ? 'Update Task' : 'Add Task'}</button>
     </form>
   );
 };

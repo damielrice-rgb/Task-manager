@@ -40,6 +40,8 @@ function App() {
     priority?: Task['priority'];
   }>({});
 
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
+
   const handleStatusChange = (
     taskId: string,
     newStatus: Task['status']
@@ -70,6 +72,21 @@ const handleAddTask = (taskData: TaskFormData) => {
     newTask
   ])
 };
+
+const handleUpdateTask = (updatedTask: Task) => {
+  setTasks((currentTasks) =>
+    currentTasks.map((task) =>
+      task.id === updatedTask.id ? updatedTask : task
+    )
+  );
+  setEditingTask(null);
+}
+
+const handleEdit = (task: Task) => {
+  console.log('Editing task:', task);
+  setEditingTask(task);
+  
+}
 
 const handleFilterChange = (newFilters: {
   status?: Task['status'] | null;
@@ -103,7 +120,11 @@ const handleFilterChange = (newFilters: {
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="mx-auto max-w-4xl">
-        <TaskForm onAddTask={handleAddTask} />
+        <TaskForm 
+        onAddTask={handleAddTask}
+        onUpdateTask={handleUpdateTask}
+        editingTask={editingTask}
+         />
 
 
        <TaskFilter
@@ -113,7 +134,8 @@ const handleFilterChange = (newFilters: {
     <TaskList 
     tasks={tasks}
     onStatusChange={handleStatusChange}
-    onDelete={handleDelete}/>
+    onDelete={handleDelete}
+    onEdit={handleEdit}/>
 
    
     </div>

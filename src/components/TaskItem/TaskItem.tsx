@@ -3,7 +3,8 @@ import type { TaskItemProps } from '../../types/index';
 export const TaskItem = ({
   task,
   onStatusChange,
-  onDelete
+  onDelete,
+  onEdit
 }: TaskItemProps ) => {
   return (
     <div className="mb-4 rounded-lg bg-white p-6 shadow-md transition-shadow hover:shadow-lg">
@@ -50,6 +51,11 @@ export const TaskItem = ({
       <button onClick={() => onDelete(task.id)}
         className="rounded-md bg-red-600 px-4 py-2 font-medium text-white hover:bg-red-700">
         Delete
+      </button>
+
+      <button onClick={() => onEdit(task)}
+        className="rounded-md bg-yellow-500 px-4 py-2 font-medium text-white hover:bg-yellow-600">
+        Edit
       </button>
       </div>
     </div>

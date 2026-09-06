@@ -6,7 +6,8 @@ import { TaskItem } from '../TaskItem/TaskItem';
 export const TaskList = ({
   tasks,
   onStatusChange,
-  onDelete
+  onDelete,
+  onEdit,
   }: TaskListProps) => {
   return (
     <div className="space-y-4">
@@ -17,6 +18,7 @@ export const TaskList = ({
         task={task}
         onStatusChange={onStatusChange}
         onDelete={onDelete}
+        onEdit={onEdit}
         />
       ))}
   

@@ -19,6 +19,7 @@ export interface TaskItemProps {
   task:Task;
   onStatusChange: (taskId: string, newStatus: TaskStatus) => void;
   onDelete: (taskId: string ) => void;
+  onEdit: (task: Task) => void;
 }
 
 export interface TaskFilterProps {
@@ -38,4 +39,6 @@ export interface TaskFormData {
 
 export interface TaskFormProps {
   onAddTask: (task: TaskFormData) => void;
+  onUpdateTask: (task: Task) => void;
+  editingTask?: Task | null;
 }
