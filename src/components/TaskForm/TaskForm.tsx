@@ -9,9 +9,28 @@ export const TaskForm = ({onAddTask}: TaskFormProps) => {
   const [status, setStatus] = useState<TaskStatus>('pending');
   const [priority, setPriority ] = useState<'low' | 'medium' | 'high'>('medium');
   const [dueDate, setDueDate ] = useState('');
+  const [errors, setErrors] = useState<string[]>([]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const newErrors: string[] = [];
+
+    if(!title.trim()){
+      newErrors.push('Title is required');
+    }
+
+    if(!description.trim()){
+      newErrors.push('Description is required');
+    }
+
+    if(!dueDate.trim()){
+      newErrors.push('Due date is required');
+    }
+
+    if(newErrors.length > 0){
+      setErrors(newErrors);
+      return;
+    }
     onAddTask({title, description, status, priority, dueDate});
 
     setTitle('');
@@ -24,6 +43,14 @@ export const TaskForm = ({onAddTask}: TaskFormProps) => {
   return (
     <form onSubmit={handleSubmit}>
       <h2>Add New Task</h2>
+
+      {errors.length > 0 && (
+        <div className="error-messages">
+          {errors.map((error) => (
+            <p key={error}>{error}</p>
+          ))}
+        </div>
+      )}
 
       <label htmlFor="title">Title</label>
       <input
