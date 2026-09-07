@@ -1,3 +1,6 @@
 # Task Manager
 
-This Task Manager is a React application that allows users to view and manage a list of tasks. Each task includes a title, description, status, priority, and due date. Users can change the status of tasks, delete tasks, and filter tasks by status or priority. I built this project using **React** and **TypeScript** with **Vite** for the development environment. I used **React components, props, and state** to organize the application and make it interactive. I also used **Tailwind CSS** to style the application and create a clean, responsive user interface. The project was created as part of my React coursework to practice building reusable components, working with TypeScript types, managing state, handling user events, and creating interactive features.
+### Reflection
+
+For this project, I used React and TypeScript to build a Task Manager app. I used different components like TaskForm, TaskList, TaskItem, TaskFilter, and Dashboard to keep the project organized. One challenge I had was getting the different components to work together, especially when adding, editing, deleting, and filtering tasks. I had some errors along the way, but I was able to fix them by checking my code and understanding how props and state work. I kept most of my main task state in the App component and passed the information and functions to the other components through props. Breaking the project into smaller components made it easier for me to understand and manage the code.
+
