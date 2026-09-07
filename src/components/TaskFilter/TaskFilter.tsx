@@ -1,10 +1,15 @@
 import type { TaskFilterProps } from '../../types/index';
+import {useState} from 'react';
 
 export const TaskFilter = ({onFilterChange}: TaskFilterProps) => {
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [priorityFilter, setPriorityFilter] = useState('all');
+
   const handleStatusChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const status = event.target.value;
+    setStatusFilter(status);
 
     if(status === 'all'){
       onFilterChange({
@@ -18,6 +23,7 @@ export const TaskFilter = ({onFilterChange}: TaskFilterProps) => {
 
 const handlePriorityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
   const priority = event.target.value;
+  setPriorityFilter(priority);
 
   if (priority === 'all'){
     onFilterChange({
@@ -36,6 +42,9 @@ return (
 
     <h2 className="mb-4 text-lg font-semibold text-gray-800">Filter Task</h2>
     <div className="flex flex-col gap-4 sm:flex-row">
+      <p className=" mt-4 text-sm font-medium text-gray-700">
+        Active Filters: Status = {statusFilter}, Priority = {priorityFilter}
+      </p>
     <div className="flex flex-col">
     <label htmlFor="status-filter"
       className="mb-1 text-sm font-medium text-gray-700">

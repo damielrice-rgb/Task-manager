@@ -3,6 +3,7 @@ import { TaskList } from '../src/components/TaskList/TaskList';
 import type { Task, TaskFormData } from '../src/types/index';
 import { TaskFilter } from '../src/components/TaskFilter/TaskFilter'
 import { TaskForm } from './components/TaskForm/TaskForm';
+import { Dashboard } from './components/Dashboard/Dashboard';
 import './App.css'
 
 const initialTasks: Task[] = [
@@ -34,6 +35,8 @@ const initialTasks: Task[] = [
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortBy, setSortBy] = useState('none');
 
   const [filters, setFilters ] = useState<{
     status?: Task['status'];
@@ -115,7 +118,24 @@ const handleFilterChange = (newFilters: {
   
 }
 
-  
+  const displayedTasks = [...tasks]
+  .filter((task) =>
+    task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    task.description.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+  .sort((a, b) => {
+    if (sortBy === 'title') {
+      return a.title.localeCompare(b.title);
+    }
+    if (sortBy === 'dueDate') {
+      return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
+    }
+    if (sortBy === 'priority') {
+      const priorityOrder = { high: 3, medium: 2, low: 1 };
+      return priorityOrder[b.priority] - priorityOrder[a.priority];
+    }
+    return 0;
+  });
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -126,13 +146,29 @@ const handleFilterChange = (newFilters: {
         editingTask={editingTask}
          />
 
+         <Dashboard tasks={displayedTasks} />
+
+         <input 
+           type="text" 
+           placeholder="Search tasks..." 
+           value={searchTerm}
+           onChange={(e) => setSearchTerm(e.target.value)}
+         />
+
+         <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <option value="none">Sort by</option>
+          <option value="title">Title</option>
+          <option value="dueDate">Due Date</option>
+          <option value="priority">Priority</option>
+        </select>
+
 
        <TaskFilter
     onFilterChange={handleFilterChange} />
 
 
     <TaskList 
-    tasks={tasks}
+    tasks={displayedTasks}
     onStatusChange={handleStatusChange}
     onDelete={handleDelete}
     onEdit={handleEdit}/>
