@@ -56,8 +56,9 @@ export const TaskForm = ({onAddTask, onUpdateTask, editingTask,}: TaskFormProps)
 
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>{editingTask ? 'Edit Task' : 'Add New Task'}</h2>
+    <form onSubmit={handleSubmit}
+    className="mb-6 rounded-lg bg-white p-6 shadow-md">
+      <h2 className="text-xl font-bold mb-4 text-gray-800">{editingTask ? 'Edit Task' : 'Add New Task'}</h2>
 
       {errors.length > 0 && (
         <div className="error-messages">
@@ -72,15 +73,17 @@ export const TaskForm = ({onAddTask, onUpdateTask, editingTask,}: TaskFormProps)
         id="title"
         type="text"
         value={title}
-        onChange={(event) => setTitle(event.target.value) }/>
+        onChange={(event) => setTitle(event.target.value) }
+        className="border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
 
-        <label htmlFor="description">
+        <label htmlFor="description" className="mb-4 w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
           Description</label>
 
           <textarea
             id="description"
             value={description}
-            onChange={(event) => setDescription(event.target.value)}></textarea>
+            onChange={(event) => setDescription(event.target.value)}
+            className="mb-4 w-full rounded-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
 
             <label htmlFor="status">Status</label>
 
